@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <title>Todo</title>
+</head>
+<body>
+    <script src="{{ url_for('static', filename='javascript.js') }}"></script>
+    <section class="hero is-link">
+        <div class="hero-body">
+            <p class="title">
+                Todo List
+              </p>
+              <p class="subtitle">
+                Add your list to do.
+              </p>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    <form action="{{ url_for('add') }}" method="POST">
+                        <div class="field has-addons">
+                            <div class="control is-expanded">
+                                <input class="input" name="todoitems" type="text" placeholder="Todo">
+                            </div>
+                            <button class="button is-success">
+                                <span>Save</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% for i in tododata %}
+    <section>
+        <div class="container">
+            <div class="columns is-mobile">
+                <div class="column is-half is-offset-one-quarter">
+                    <div class="box">
+                        <div class="columns ">
+                            <div class="column is-2">
+                                <label class="checkbox py-4 px-3">
+                                    {% if i.done == True %}
+                                    <input type="checkbox" data-dataid="{{ i.id }}" id="myCheck{{ i.id }}" name="checkbox" onclick="sendCheBox(this)" checked>
+                                    {% else %}
+                                    <input type="checkbox" data-dataid="{{ i.id }}" id="myCheck{{ i.id }}" name="checkbox" onclick="sendCheBox(this)" >
+                                    {% endif %}
+                                  </label>
+                            </div>
+                            <div class="column is-8">{{ i.todo }}</div>
+                            <div class="column is-2">
+                                <form action="{{ url_for('delete', id=i.id) }}">
+                                    <p class="buttons py-2">
+                                        <button class="button is-danger is-outlined">
+                                            <span>Delete</span>
+                                        </button>
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    {% endfor %}
+    
+    
+
+</body>
+</html>
