@@ -31,7 +31,6 @@ def update():
     db.session.commit()
     print(updateDone)
     return "OK"
-   
 
 @app.route('/delete/<id>')
 def delete(id):
