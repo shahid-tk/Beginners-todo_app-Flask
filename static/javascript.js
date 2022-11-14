@@ -5,7 +5,4 @@ function sendCheBox(elm){
         window.location.reload(true);
     });
     console.log(dataToSend);
-    if (elm.checked){
-
-    }
 }
